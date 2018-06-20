@@ -5,12 +5,6 @@ import (
 	"html/template"
 )
 
-type Handler struct{}
-
-func (handler Handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	tpl.ExecuteTemplate(w, "index.gohtml", nil)
-}
-
 var tpl *template.Template
 
 func init() {
@@ -18,7 +12,11 @@ func init() {
 }
 
 func main() {
-	var handler Handler
+	http.HandleFunc("/", indexRoute)
 
-	http.ListenAndServe(":8080", handler)
+	http.ListenAndServe(":8080", nil)
+}
+
+func indexRoute(w http.ResponseWriter, r *http.Request) {
+	tpl.ExecuteTemplate(w, "index.gohtml", nil)
 }
