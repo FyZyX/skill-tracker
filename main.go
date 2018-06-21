@@ -3,6 +3,7 @@ package main
 import (
 	"net/http"
 	"html/template"
+	"log"
 )
 
 var tpl *template.Template
@@ -12,9 +13,11 @@ func init() {
 }
 
 func main() {
+	http.Handle("/assets/", http.StripPrefix("/assets", http.FileServer(http.Dir("./assets"))))
+	http.Handle("/favicon.ico", http.NotFoundHandler())
 	http.HandleFunc("/", indexRoute)
 
-	http.ListenAndServe(":8080", nil)
+	log.Fatal(http.ListenAndServe(":8080", nil))
 }
 
 func indexRoute(w http.ResponseWriter, r *http.Request) {
