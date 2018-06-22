@@ -17,6 +17,7 @@ func main() {
 	http.Handle("/favicon.ico", http.NotFoundHandler())
 	http.HandleFunc("/", indexRoute)
 
+	log.Printf("Listening on port 8080")
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }
 
