@@ -11,6 +11,8 @@
     <h2>Welcome to Skill Tracker!</h2>
 </section>
 
-{{template "skill.gohtml" .Skill}}
+{{range .Skills}}
+    {{template "skill.gohtml" .}}
+{{end}}
 </body>
 </html>
